@@ -1,0 +1,799 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.hero { padding: 2rem 0 1rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 1.5rem; }
+.badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; background: var(--color-background-info); color: var(--color-text-info); }
+.hero h1 { font-size: 26px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.hero p { font-size: 14px; color: var(--color-text-secondary); }
+.nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+.nav button { font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; }
+.nav button:hover { background: var(--color-background-secondary); }
+.nav button.active { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; }
+.section { display: none; }
+.section.active { display: block; }
+.section-title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.section-sub { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1.5rem; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; }
+.card h3 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
+.card p, .card li { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.card ul { padding-left: 16px; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 12px; margin: 2px 2px 2px 0; }
+.tag-blue { background: var(--color-background-info); color: var(--color-text-info); }
+.tag-green { background: var(--color-background-success); color: var(--color-text-success); }
+.tag-amber { background: var(--color-background-warning); color: var(--color-text-warning); }
+.tag-red { background: var(--color-background-danger); color: var(--color-text-danger); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; text-align: center; }
+.metric-val { font-size: 28px; font-weight: 500; color: var(--color-text-primary); }
+.metric-lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+.score-bar { height: 8px; border-radius: 4px; background: var(--color-background-secondary); margin: 6px 0 12px; overflow: hidden; }
+.score-fill { height: 100%; border-radius: 4px; background: var(--color-text-info); transition: width 0.6s ease; }
+.agent-card { border-left: 3px solid; padding: 12px 14px; margin-bottom: 10px; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; background: var(--color-background-secondary); }
+.flow-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; background: var(--color-background-info); color: var(--color-text-info); }
+.step-body h4 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.step-body p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+.code-block { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--color-text-primary); overflow-x: auto; margin: 8px 0; line-height: 1.6; white-space: pre; }
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 1px; background: var(--color-border-secondary); }
+.timeline-item { position: relative; margin-bottom: 16px; }
+.timeline-item::before { content: ''; position: absolute; left: -20px; top: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--color-text-info); }
+.timeline-item h4 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.timeline-item p { font-size: 12px; color: var(--color-text-secondary); }
+</style>
+
+<div class="hero">
+  <div class="badge">Vibe2Ship Hackathon · Problem Statement 2</div>
+  <h1>CivicPulse — AI Hyperlocal Problem Solver</h1>
+  <p>Complete winning project blueprint · Multi-agent Gemini system · Google-native stack</p>
+</div>
+
+<div class="nav">
+  <button class="active" onclick="show('vision')">Product Vision</button>
+  <button onclick="show('features')">Features</button>
+  <button onclick="show('agents')">AI Agents</button>
+  <button onclick="show('arch')">Architecture</button>
+  <button onclick="show('db')">Database</button>
+  <button onclick="show('api')">APIs</button>
+  <button onclick="show('google')">Google Tech</button>
+  <button onclick="show('gamify')">Gamification</button>
+  <button onclick="show('roadmap')">Roadmap</button>
+  <button onclick="show('score')">Win Score</button>
+</div>
+
+<!-- VISION -->
+<div id="vision" class="section active">
+  <div class="section-title">Product vision</div>
+  <div class="section-sub">What makes CivicPulse stand out from every other civic reporting app</div>
+
+  <div class="card" style="border-left: 3px solid var(--color-border-info);">
+    <h3>Core problem</h3>
+    <p>Citizens have no way to report hyperlocal issues — potholes, broken streetlights, water leakage — in a way that guarantees action. Existing tools are either government portals nobody checks, or social media posts that get ignored. The gap: <strong>AI-powered closed-loop accountability</strong> that takes a photo and autonomously routes it to the right authority, validates it with community consensus, predicts recurrence, and rewards civic participation.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Target users</h3>
+      <ul>
+        <li>Citizens (reporters) — 80% of traffic</li>
+        <li>Community moderators — trusted validators</li>
+        <li>Municipal authorities — resolution owners</li>
+        <li>Ward councillors — accountability layer</li>
+        <li>NGOs / civic tech orgs — bulk monitoring</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Why judges will love it</h3>
+      <ul>
+        <li>Multi-agent Gemini system (not just one API call)</li>
+        <li>Predictive analytics beyond reactive reporting</li>
+        <li>Structured outputs + function calling throughout</li>
+        <li>Firebase real-time + Google Maps deep integration</li>
+        <li>Gamification loop that increases engagement metrics</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Competitive differentiators</h3>
+      <ul>
+        <li>Autonomous duplicate detection — no manual triaging</li>
+        <li>Severity scoring with SLA auto-assignment</li>
+        <li>Predictive heatmaps (ML over historical data)</li>
+        <li>Resolution recommendation with cost estimation</li>
+        <li>Community consensus before escalation (anti-spam)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>The one-liner pitch</h3>
+      <p style="font-size:15px; font-weight:500; color:var(--color-text-primary); line-height:1.5;">"CivicPulse turns a citizen's photo into an autonomous chain of AI agents that validate, classify, route, and predict infrastructure failures — making every street problem impossible to ignore."</p>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div id="features" class="section">
+  <div class="section-title">Feature prioritization</div>
+  <div class="section-sub">Tiered by build priority and judging impact</div>
+
+  <div class="card">
+    <h3>🔴 Core (MVP — build first)</h3>
+    <div style="margin-top:8px;">
+      <span class="tag tag-red">Photo upload + GPS</span>
+      <span class="tag tag-red">Gemini Vision analysis</span>
+      <span class="tag tag-red">Auto-categorization</span>
+      <span class="tag tag-red">Severity scoring</span>
+      <span class="tag tag-red">Google Maps pin</span>
+      <span class="tag tag-red">Issue tracker</span>
+      <span class="tag tag-red">Firebase Auth</span>
+      <span class="tag tag-red">Realtime status updates</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🟡 Advanced (strong differentiators)</h3>
+    <div style="margin-top:8px;">
+      <span class="tag tag-amber">Duplicate detection agent</span>
+      <span class="tag tag-amber">Community verification voting</span>
+      <span class="tag tag-amber">Authority dashboard</span>
+      <span class="tag tag-amber">Resolution recommendations</span>
+      <span class="tag tag-amber">XP + badges gamification</span>
+      <span class="tag tag-amber">Push notifications (FCM)</span>
+      <span class="tag tag-amber">Multi-language (Gemini translate)</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🟢 Judge-Wow (max score features)</h3>
+    <div style="margin-top:8px;">
+      <span class="tag tag-green">Predictive heatmap (future failures)</span>
+      <span class="tag tag-green">Gemini function calling orchestration</span>
+      <span class="tag tag-green">Structured JSON outputs throughout</span>
+      <span class="tag tag-green">Agent-to-agent communication log (visible)</span>
+      <span class="tag tag-green">Impact analytics dashboard</span>
+      <span class="tag tag-green">Voice report (Gemini Audio)</span>
+      <span class="tag tag-green">AI-generated authority letters</span>
+      <span class="tag tag-green">Cost estimation per issue type</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Complete user flows</h3>
+    <div class="flow-step"><div class="step-num">1</div><div class="step-body"><h4>Citizen reports issue</h4><p>Opens app → Camera/gallery → Photo uploaded to Firebase Storage → GPS auto-captured → AI pipeline triggered instantly</p></div></div>
+    <div class="flow-step"><div class="step-num">2</div><div class="step-body"><h4>AI agents process</h4><p>Vision Agent analyzes photo → Categorization Agent classifies → Severity Agent scores 1-10 → Duplicate Agent checks geo radius → Routing Agent assigns authority</p></div></div>
+    <div class="flow-step"><div class="step-num">3</div><div class="step-body"><h4>Community verifies</h4><p>Nearby users get push notification → Upvote/downvote confirms issue → Threshold met → Issue escalated to authority</p></div></div>
+    <div class="flow-step"><div class="step-num">4</div><div class="step-body"><h4>Authority resolves</h4><p>Authority dashboard shows prioritized queue → Accepts/assigns/resolves → Status update triggers FCM to reporter → XP awarded</p></div></div>
+    <div class="flow-step"><div class="step-num">5</div><div class="step-body"><h4>Rewards & analytics</h4><p>Reporter earns XP + badges → Community leaderboard updates → Analytics Agent generates weekly insight reports</p></div></div>
+  </div>
+</div>
+
+<!-- AI AGENTS -->
+<div id="agents" class="section">
+  <div class="section-title">Multi-agent AI architecture</div>
+  <div class="section-sub">9 Gemini-powered agents collaborating autonomously via function calling</div>
+
+  <div class="agent-card" style="border-color:#185FA5;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">1. Vision Analysis Agent</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Input:</strong> Image bytes + GPS · <strong>Output:</strong> Structured JSON {issue_detected, confidence, visual_description, damage_extent} · <strong>Model:</strong> gemini-2.5-pro with vision · <strong>Key:</strong> Uses structured output schema to guarantee parseable JSON, never freeform text</p>
+  </div>
+
+  <div class="agent-card" style="border-color:#0F6E56;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">2. Categorization Agent</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Input:</strong> Vision output + description · <strong>Output:</strong> {category, sub_category, tags[]} from enum set · <strong>Categories:</strong> ROAD_DAMAGE, WATER_INFRASTRUCTURE, ELECTRICAL, SANITATION, PUBLIC_SAFETY, ENCROACHMENT · Uses function calling to query historical category distribution</p>
+  </div>
+
+  <div class="agent-card" style="border-color:#854F0B;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">3. Severity Scoring Agent</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Input:</strong> Category + visual description + location · <strong>Output:</strong> {severity_score: 1-10, urgency: LOW/MEDIUM/HIGH/CRITICAL, sla_hours, risk_factors[]} · <strong>Logic:</strong> Weights safety risk, population density, recurrence history · SLA auto-assigned based on score</p>
+  </div>
+
+  <div class="agent-card" style="border-color:#A32D2D;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">4. Duplicate Detection Agent</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Input:</strong> GPS coordinates + category + image embedding · <strong>Output:</strong> {is_duplicate, matched_report_id, similarity_score} · <strong>Method:</strong> Geo-radius query (50m) + semantic similarity on descriptions + image hash comparison · Merges duplicates, credits original reporter</p>
+  </div>
+
+  <div class="agent-card" style="border-color:#533AB7;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">5. Routing Agent</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Input:</strong> Category + ward/zone from Maps API + severity · <strong>Output:</strong> {authority_id, department, escalation_path[], estimated_resolution_days} · Uses function call to query authority_zones Firestore collection · Cascading escalation if SLA breached</p>
+  </div>
+
+  <div class="agent-card" style="border-color:#3B6D11;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">6. Community Engagement Agent</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Input:</strong> New report + nearby user list · <strong>Output:</strong> FCM notification payload + verification prompts · Personalizes message based on user's past engagement history · Awards XP for verifications</p>
+  </div>
+
+  <div class="agent-card" style="border-color:#D85A30;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">7. Resolution Recommendation Agent</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Input:</strong> Issue category + severity + historical resolutions · <strong>Output:</strong> {recommended_action, estimated_cost_inr, required_resources[], reference_cases[]} · Generates authority action letter as markdown · Pulls similar resolved cases as references</p>
+  </div>
+
+  <div class="agent-card" style="border-color:#993556;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">8. Predictive Analytics Agent</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Input:</strong> Historical reports + seasonal data + urban density · <strong>Output:</strong> {risk_zones[], predicted_issues[], prevention_recommendations[]} · Runs weekly batch · Outputs GeoJSON heatmap data for Maps overlay · Biggest "wow" factor for judges</p>
+  </div>
+
+  <div class="agent-card" style="border-color:#73726c;">
+    <div style="font-weight:500;font-size:13px;color:var(--color-text-primary);">9. Orchestrator Agent (Coordinator)</div>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><strong>Role:</strong> Master controller using Gemini function calling to sequence agents 1-7 for each new report · Maintains agent state log visible in UI (show judges the chain!) · Handles failures with retry + fallback · All agent results written to Firestore for auditability</p>
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    <h3>Sample Gemini prompt — Vision Analysis Agent</h3>
+    <div class="code-block">You are a civic infrastructure analysis agent.
+
+Analyze the provided image and return ONLY valid JSON matching this schema:
+{
+  "issue_detected": boolean,
+  "confidence": float (0-1),
+  "issue_type": string,
+  "visual_description": string (max 100 words),
+  "damage_extent": "MINOR" | "MODERATE" | "SEVERE" | "CRITICAL",
+  "safety_risk": boolean,
+  "affected_area_sqm": number | null
+}
+
+Image context: GPS lat={lat}, lng={lng}, timestamp={ts}
+Do not include any text outside the JSON object.</div>
+  </div>
+
+  <div class="card">
+    <h3>Sample Gemini prompt — Severity Scoring Agent</h3>
+    <div class="code-block">You are a municipal severity assessment agent.
+
+Given this civic issue, output a JSON severity assessment:
+Issue: {visual_description}
+Category: {category}
+Location type: {location_type} (residential/commercial/highway)
+Historical reports at this location: {count}
+
+Return JSON:
+{
+  "severity_score": integer (1-10),
+  "urgency": "LOW" | "MEDIUM" | "HIGH" | "CRITICAL",
+  "sla_hours": integer,
+  "risk_factors": string[],
+  "public_safety_threat": boolean
+}</div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE -->
+<div id="arch" class="section">
+  <div class="section-title">System architecture</div>
+  <div class="section-sub">Full-stack Google-native architecture designed for the hackathon</div>
+
+  <div class="card">
+    <h3>Tech stack decisions</h3>
+    <div class="grid2" style="margin-top:8px;">
+      <div>
+        <p style="font-weight:500;margin-bottom:4px;">Frontend</p>
+        <span class="tag tag-blue">React + Vite</span>
+        <span class="tag tag-blue">Firebase Hosting</span>
+        <span class="tag tag-blue">Google Maps JS SDK</span>
+        <span class="tag tag-blue">Material UI / Tailwind</span>
+      </div>
+      <div>
+        <p style="font-weight:500;margin-bottom:4px;">Backend</p>
+        <span class="tag tag-green">Firebase Functions (Node.js)</span>
+        <span class="tag tag-green">Gemini API (Google AI Studio)</span>
+        <span class="tag tag-green">Firebase Admin SDK</span>
+      </div>
+      <div>
+        <p style="font-weight:500;margin-bottom:4px;">Database</p>
+        <span class="tag tag-amber">Firestore (primary)</span>
+        <span class="tag tag-amber">Firebase Storage (images)</span>
+        <span class="tag tag-amber">Realtime DB (live updates)</span>
+      </div>
+      <div>
+        <p style="font-weight:500;margin-bottom:4px;">AI / Google</p>
+        <span class="tag tag-red">gemini-2.5-pro</span>
+        <span class="tag tag-red">Gemini Vision</span>
+        <span class="tag tag-red">Function Calling</span>
+        <span class="tag tag-red">Structured Outputs</span>
+        <span class="tag tag-red">FCM</span>
+        <span class="tag tag-red">Maps Platform</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Data flow (report submission)</h3>
+    <div class="flow-step"><div class="step-num">1</div><div class="step-body"><h4>Client → Firebase Storage</h4><p>Photo uploaded with metadata (GPS, userId, timestamp)</p></div></div>
+    <div class="flow-step"><div class="step-num">2</div><div class="step-body"><h4>Storage trigger → Cloud Function</h4><p>onFinalize trigger fires orchestrator agent</p></div></div>
+    <div class="flow-step"><div class="step-num">3</div><div class="step-body"><h4>Orchestrator → Agent chain</h4><p>Sequential: Vision → Categorize → Severity → Duplicate → Route (parallel after duplicate check)</p></div></div>
+    <div class="flow-step"><div class="step-num">4</div><div class="step-body"><h4>Firestore write</h4><p>Report document created with all AI analysis results, status=PENDING_VERIFICATION</p></div></div>
+    <div class="flow-step"><div class="step-num">5</div><div class="step-body"><h4>FCM → nearby citizens</h4><p>Geofenced push notification to users within 500m</p></div></div>
+    <div class="flow-step"><div class="step-num">6</div><div class="step-body"><h4>Realtime DB → Authority dashboard</h4><p>Live queue updated, authority notified</p></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Screens to build (UI)</h3>
+    <div class="grid2" style="margin-top:8px;">
+      <div>
+        <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.8;">
+          ✦ Landing / onboarding (Google Sign-in)<br>
+          ✦ Home feed (nearby issues map + list)<br>
+          ✦ Report issue (camera → AI processing animation)<br>
+          ✦ AI Analysis result card (show agent chain!)<br>
+          ✦ Issue detail + community verification
+        </p>
+      </div>
+      <div>
+        <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.8;">
+          ✦ My reports + tracking<br>
+          ✦ Rewards / leaderboard<br>
+          ✦ Authority dashboard (admin)<br>
+          ✦ Predictive heatmap overlay<br>
+          ✦ Impact analytics dashboard
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DATABASE -->
+<div id="db" class="section">
+  <div class="section-title">Database design</div>
+  <div class="section-sub">Firestore collections with complete schemas</div>
+
+  <div class="card">
+    <h3>Collection: reports</h3>
+    <div class="code-block">{
+  id: string,               // auto-generated
+  reporterId: string,        // users/{uid}
+  status: enum,              // PENDING|VERIFYING|VERIFIED|ASSIGNED|IN_PROGRESS|RESOLVED|CLOSED
+  
+  // Location
+  location: GeoPoint,
+  address: string,
+  wardId: string,
+  
+  // Media
+  imageUrl: string,
+  imageHash: string,          // for duplicate detection
+  
+  // AI Analysis (from agents)
+  aiAnalysis: {
+    category: string,
+    subCategory: string,
+    severity: number,          // 1-10
+    urgency: string,
+    slaHours: number,
+    visualDescription: string,
+    riskFactors: string[],
+    confidence: number,
+    processingLog: AgentLog[]  // show in UI!
+  },
+  
+  // Community
+  verificationCount: number,
+  verifications: string[],   // array of userIds
+  upvotes: number,
+  
+  // Resolution
+  assignedAuthority: string,
+  authorityComment: string,
+  resolvedAt: timestamp,
+  resolutionImageUrl: string,
+  
+  createdAt: timestamp,
+  updatedAt: timestamp,
+  
+  // Indexes: wardId+status, location (geo), reporterId, createdAt
+}</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Collection: users</h3>
+      <div class="code-block" style="font-size:11px;">{
+  uid: string,
+  displayName: string,
+  email: string,
+  photoURL: string,
+  wardId: string,
+  role: "CITIZEN"|"MODERATOR"|"AUTHORITY",
+  
+  gamification: {
+    xp: number,
+    level: number,
+    badges: string[],
+    reportsSubmitted: number,
+    verificationsGiven: number,
+    resolvedCount: number
+  },
+  
+  fcmToken: string,
+  createdAt: timestamp
+}</div>
+    </div>
+    <div class="card">
+      <h3>Collection: authorities</h3>
+      <div class="code-block" style="font-size:11px;">{
+  id: string,
+  name: string,
+  department: string,
+  wardIds: string[],
+  categories: string[],
+  contactEmail: string,
+  
+  stats: {
+    totalAssigned: number,
+    resolved: number,
+    avgResolutionHours: number,
+    slaBreaches: number
+  },
+  
+  slaConfig: {
+    CRITICAL: 4,
+    HIGH: 24,
+    MEDIUM: 72,
+    LOW: 168
+  }
+}</div>
+    </div>
+    <div class="card">
+      <h3>Collection: predictions</h3>
+      <div class="code-block" style="font-size:11px;">{
+  id: string,
+  generatedAt: timestamp,
+  wardId: string,
+  
+  riskZones: [{
+    location: GeoPoint,
+    radius: number,
+    riskScore: number,
+    predictedCategory: string,
+    confidence: number,
+    reasoning: string
+  }],
+  
+  weeklyInsights: string,
+  preventionActions: string[]
+}</div>
+    </div>
+    <div class="card">
+      <h3>Collection: verifications</h3>
+      <div class="code-block" style="font-size:11px;">{
+  id: string,
+  reportId: string,
+  userId: string,
+  type: "CONFIRM"|"DISPUTE",
+  comment: string,
+  imageUrl: string | null,
+  location: GeoPoint,
+  createdAt: timestamp,
+  xpAwarded: number
+}</div>
+    </div>
+  </div>
+</div>
+
+<!-- API -->
+<div id="api" class="section">
+  <div class="section-title">API design</div>
+  <div class="section-sub">Firebase Functions endpoints + Gemini integration patterns</div>
+
+  <div class="card">
+    <h3>POST /api/reports — create report</h3>
+    <div class="code-block">// Request (multipart form OR JSON with imageUrl)
+{
+  "imageUrl": "gs://bucket/images/abc.jpg",
+  "location": { "lat": 28.9931, "lng": 77.7067 },
+  "description": "optional user note"
+}
+
+// Response
+{
+  "reportId": "rpt_abc123",
+  "status": "PROCESSING",
+  "agentPipelineId": "pipe_xyz",
+  "estimatedProcessingMs": 3000
+}</div>
+  </div>
+
+  <div class="card">
+    <h3>GET /api/reports — list with filters</h3>
+    <div class="code-block">// Query params
+?lat=28.99&lng=77.70&radius=1000   // geo filter
+&status=VERIFIED                    // status filter
+&category=ROAD_DAMAGE              // category filter
+&limit=20&cursor=TOKEN             // pagination
+
+// Response
+{
+  "reports": [ReportObject],
+  "nextCursor": "TOKEN",
+  "total": 142
+}</div>
+  </div>
+
+  <div class="card">
+    <h3>POST /api/reports/:id/verify — community verification</h3>
+    <div class="code-block">// Request
+{
+  "type": "CONFIRM",
+  "comment": "Confirmed, saw it this morning",
+  "location": { "lat": 28.9932, "lng": 77.7068 }
+}
+
+// Response
+{
+  "verificationId": "ver_abc",
+  "currentVotes": 4,
+  "threshold": 5,
+  "xpAwarded": 10,
+  "statusChanged": false
+}</div>
+  </div>
+
+  <div class="card">
+    <h3>GET /api/analytics/predictions — heatmap data</h3>
+    <div class="code-block">// Response (GeoJSON for Maps overlay)
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [77.70, 28.99] },
+    "properties": {
+      "riskScore": 0.87,
+      "category": "ROAD_DAMAGE",
+      "confidence": 0.73,
+      "reasoning": "High traffic + monsoon history + 3 prior reports"
+    }
+  }]
+}</div>
+  </div>
+
+  <div class="card">
+    <h3>POST /api/agents/orchestrate — internal agent trigger</h3>
+    <div class="code-block">// Called by Firebase Storage trigger (internal)
+// Shows judges the explicit agent chain:
+
+{
+  "reportId": "rpt_abc123",
+  "pipeline": [
+    { "agent": "VisionAgent", "status": "COMPLETE", "durationMs": 1240 },
+    { "agent": "CategorizationAgent", "status": "COMPLETE", "durationMs": 340 },
+    { "agent": "SeverityAgent", "status": "COMPLETE", "durationMs": 280 },
+    { "agent": "DuplicateAgent", "status": "COMPLETE", "durationMs": 890 },
+    { "agent": "RoutingAgent", "status": "COMPLETE", "durationMs": 120 }
+  ],
+  "totalDurationMs": 2870
+}</div>
+  </div>
+</div>
+
+<!-- GOOGLE TECH -->
+<div id="google" class="section">
+  <div class="section-title">Google technology integration</div>
+  <div class="section-sub">Maximizing the 15% "Usage of Google Technologies" criterion — but also boosting all other criteria</div>
+
+  <div class="card" style="border-left:3px solid var(--color-border-info);">
+    <h3>Gemini 2.5 Pro — Core AI engine (most important)</h3>
+    <p>Use for ALL 9 agents. Critical: use <strong>structured outputs</strong> (response_schema parameter) for every agent call — this forces JSON and impresses judges. Use <strong>function calling</strong> to let agents query Firestore (get_nearby_reports, get_authority_for_ward, get_historical_data). This demonstrates true agentic behavior, not just prompt-response.</p>
+  </div>
+
+  <div class="card">
+    <h3>Google AI Studio deployment</h3>
+    <p>Deploy the React frontend via Google AI Studio's built-in hosting (mandatory per rules). The AI Studio deployment link is your submitted application URL. Keep the backend on Firebase Functions — both are Google infrastructure.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Firebase suite</h3>
+      <ul>
+        <li>Auth — Google Sign-In (1-click onboarding)</li>
+        <li>Firestore — all data + real-time listeners</li>
+        <li>Storage — image hosting with CDN</li>
+        <li>Functions — serverless agent backend</li>
+        <li>FCM — push notifications to citizens</li>
+        <li>Hosting — frontend deployment</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Google Maps Platform</h3>
+      <ul>
+        <li>Maps JS API — issue visualization</li>
+        <li>Geocoding API — address from GPS</li>
+        <li>Places API — location autocomplete</li>
+        <li>Heatmap layer — predictive risk overlay</li>
+        <li>Marker clustering — dense area handling</li>
+        <li>Street View — before/after comparison</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Gemini function calling example (Routing Agent)</h3>
+    <div class="code-block">const tools = [{
+  functionDeclarations: [{
+    name: "get_authority_for_ward",
+    description: "Get the responsible municipal authority for a ward and issue category",
+    parameters: {
+      type: "object",
+      properties: {
+        ward_id: { type: "string" },
+        issue_category: { type: "string", enum: ["ROAD_DAMAGE", "WATER_INFRASTRUCTURE", ...] }
+      },
+      required: ["ward_id", "issue_category"]
+    }
+  }, {
+    name: "get_historical_resolution_time",
+    description: "Get average resolution time for similar issues in this ward",
+    parameters: { ... }
+  }]
+}];
+
+const result = await model.generateContent({
+  contents: [{ role: "user", parts: [{ text: routingPrompt }] }],
+  tools,
+  generationConfig: {
+    responseMimeType: "application/json",
+    responseSchema: RoutingOutputSchema
+  }
+});</div>
+  </div>
+</div>
+
+<!-- GAMIFICATION -->
+<div id="gamify" class="section">
+  <div class="section-title">Gamification system</div>
+  <div class="section-sub">Designed to increase DAU, retention, and community verification rates</div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>XP system</h3>
+      <ul>
+        <li>Submit a new report: +25 XP</li>
+        <li>Report gets verified: +15 XP</li>
+        <li>Report gets resolved: +50 XP</li>
+        <li>Verify another report (correct): +10 XP</li>
+        <li>First report in ward: +100 XP bonus</li>
+        <li>Streak (7 days active): +75 XP</li>
+        <li>High-severity report: XP ×2 multiplier</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Levels</h3>
+      <ul>
+        <li>Level 1 — Watchful Citizen (0–100 XP)</li>
+        <li>Level 2 — Street Guardian (100–300 XP)</li>
+        <li>Level 3 — Ward Champion (300–700 XP)</li>
+        <li>Level 4 — Civic Hero (700–1500 XP)</li>
+        <li>Level 5 — Community Legend (1500+ XP)</li>
+      </ul>
+      <p style="margin-top:8px;">Higher levels → moderator privileges → authority of early access</p>
+    </div>
+    <div class="card">
+      <h3>Badges (judge-visible)</h3>
+      <ul>
+        <li>🔭 First Spotter — first report in area</li>
+        <li>⚡ Fast Responder — verified within 1hr</li>
+        <li>🎯 10× Reporter — 10 confirmed reports</li>
+        <li>🌧️ Monsoon Guard — reported water issues</li>
+        <li>🌙 Night Watch — reported after 10pm</li>
+        <li>🏆 Top Ward — #1 in ward leaderboard</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Leaderboards</h3>
+      <ul>
+        <li>Ward leaderboard (most relevant — hyperlocal)</li>
+        <li>City leaderboard (weekly reset)</li>
+        <li>Category specialists (pothole hunters, etc.)</li>
+        <li>Authority response rate ranking (accountability!)</li>
+      </ul>
+      <p style="margin-top:8px;">Authority leaderboard is unique — creates public pressure to resolve issues fast</p>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div id="roadmap" class="section">
+  <div class="section-title">Development roadmap</div>
+  <div class="section-sub">Day-wise plan for June 22–29 (7 days)</div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>Day 1 (Jun 22) — Foundation</h4>
+      <p>Firebase project setup · Auth + Firestore rules · React app scaffold · Basic routing · Firebase Storage config · Google Maps key</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Day 2 (Jun 23) — Core AI pipeline</h4>
+      <p>Gemini API integration · Vision Agent + Categorization Agent · Structured output schemas · Storage trigger → Cloud Function · Test with real photos</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Day 3 (Jun 24) — Report flow (Mentor day)</h4>
+      <p>Severity + Duplicate + Routing agents · Full orchestrator · Report submission UI · AI result display · Agent chain visible in UI · Attend mentor session 4pm</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Day 4 (Jun 25) — Maps + Community</h4>
+      <p>Google Maps integration · Issue pins + clustering · Community verification flow · FCM push notifications · Nearby user geofencing</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Day 5 (Jun 26) — Authority + Gamification</h4>
+      <p>Authority dashboard (separate role) · Issue queue with priority sort · XP system + badges · Leaderboard · Resolution recommendation agent</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Day 6 (Jun 27) — Predictive + Polish</h4>
+      <p>Predictive Analytics Agent · Heatmap overlay on Maps · Analytics dashboard · UI polish · Loading states · Error handling · Multi-language test</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Day 7 (Jun 28–29am) — Deploy + Demo</h4>
+      <p>Deploy to Google AI Studio · Final Firebase deploy · Seed 10–15 demo reports · Record demo video · Write Google Doc description · Submit by 2pm Jun 29</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    <h3>Demo strategy (most important hour)</h3>
+    <p style="font-size:13px;line-height:1.7;">1. Show a live photo submission → watch AI agent chain process in real-time (visible in UI) → category + severity appear → map pin drops. 2. Switch to authority dashboard → show prioritized queue → accept + resolve. 3. Show predictive heatmap overlay. 4. Show reporter XP awarded. The entire demo should be under 3 minutes and show the complete closed loop.</p>
+  </div>
+</div>
+
+<!-- SCORE -->
+<div id="score" class="section">
+  <div class="section-title">Winning score analysis</div>
+  <div class="section-sub">How CivicPulse maximizes every evaluation criterion</div>
+
+  <div class="card">
+    <h3>Estimated scores by criterion</h3>
+    <div style="margin-top:12px;">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-secondary);margin-bottom:2px;"><span>Problem Solving & Impact (20%)</span><span>~18/20</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:90%"></div></div>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">Real problem, real users, closed loop from report to resolution, predictive prevention</p>
+
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-secondary);margin-bottom:2px;"><span>Agentic Depth (20%)</span><span>~19/20</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:95%"></div></div>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">9 specialized agents, function calling, agent-to-agent state passing, visible orchestration log</p>
+
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-secondary);margin-bottom:2px;"><span>Innovation & Creativity (20%)</span><span>~17/20</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:85%"></div></div>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">Predictive heatmaps, authority accountability leaderboard, community consensus anti-spam</p>
+
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-secondary);margin-bottom:2px;"><span>Usage of Google Technologies (15%)</span><span>~14/15</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:93%"></div></div>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">Gemini 2.5 Pro + Vision + Function Calling + Structured Outputs + Firebase full suite + Maps Platform</p>
+
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-secondary);margin-bottom:2px;"><span>Product Experience & Design (10%)</span><span>~8/10</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">Clean UI, real-time updates, gamification engagement hooks, mobile-first</p>
+
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-secondary);margin-bottom:2px;"><span>Technical Implementation (10%)</span><span>~9/10</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:90%"></div></div>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">Serverless architecture, structured schemas, error handling, real Firebase + Gemini integration</p>
+
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-secondary);margin-bottom:2px;"><span>Completeness & Usability (5%)</span><span>~4/5</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">All 3 user roles functional, end-to-end flow works, seeded demo data</p>
+
+      <div style="background:var(--color-background-success);border-radius:var(--border-radius-md);padding:12px;margin-top:8px;text-align:center;">
+        <div style="font-size:22px;font-weight:500;color:var(--color-text-success);">~89/100</div>
+        <div style="font-size:12px;color:var(--color-text-success);">Estimated total score</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--color-border-success);">
+    <h3>Single most important thing to build</h3>
+    <p>Make the <strong>agent chain visible in the UI</strong>. When a report is submitted, show a live "AI Processing" panel that updates step by step: "Vision Agent analyzing image... → Category detected: Road Damage... → Severity: HIGH (7.2/10)... → Routing to PWD Department...". This one feature alone convinces judges you built real agentic AI, not just a single Gemini API call.</p>
+  </div>
+
+  <div class="card">
+    <h3>Final deliverable summary</h3>
+    <div class="grid2" style="margin-top:8px;">
+      <div><p style="font-weight:500;margin-bottom:4px;">Project name</p><p>CivicPulse — AI Hyperlocal Problem Solver</p></div>
+      <div><p style="font-weight:500;margin-bottom:4px;">Stack</p><p>React + Firebase + Gemini 2.5 Pro + Google Maps</p></div>
+      <div><p style="font-weight:500;margin-bottom:4px;">Core innovation</p><p>9-agent orchestration pipeline with visible chain + predictive heatmaps</p></div>
+      <div><p style="font-weight:500;margin-bottom:4px;">Deploy target</p><p>Google AI Studio + Firebase Hosting</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
