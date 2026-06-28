@@ -64,6 +64,7 @@ export default function ReportPage({ user, onNavigate }) {
     setPipeline([]);
     try {
       const loc = await getLocation();
+      console.log("LOC FULL:", JSON.stringify(loc));
       setLocationInfo(loc); // NEW — save loc to state
       const base64 = await fileToBase64(imageFile);
       const orchestratorResult = await runOrchestrator(base64, imageFile.type, loc, (p) => setPipeline([...p]), isVideo);
